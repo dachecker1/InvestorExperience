@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name" translatable="false">Опыт инвестора</string>
+    <string name="search" translatable="false">Поиск</string>
+    <string name="search_to_upper_case" translatable="false">ПОИСК</string>
+    <string name="list" translatable="false">Список</string>
+    <string name="links" translatable="false">Ссылки</string>
+    <string name="result" translatable="false">Результат поиска по тикеру</string>
+    <string name="about" translatable="false">Еще</string>
+    <string name="enter_ticker" translatable="false">Введи название тикера</string>
+    <string name="hint" translatable="false">AMZN</string>
+    <string name="tickers" translatable="false">ТИКЕРЫ</string>
+    <string name="empty_text" translatable="false">Пустой запрос</string>
+    <string name="empty_result" translatable="false">Упс, по данному запросу ничего не найдено. Посмотришь что-то еще?</string>
+    <string name="list_of_stock" translatable="false">РАССМОТРЕННЫЕ ТИКЕРЫ</string>
+    <string name="list_title" translatable="false">СПИСОК</string>
+    <string name="links_title" translatable="false">ССЫЛКИ</string>
+    <string name="youtube_title" translatable="false">Опыт инвестора</string>
+    <string name="broker_title" translatable="false">Открыть брокерский счет Тинькофф…</string>
+    <string name="broker_description" translatable="false">…и получить подарки в виде акций или бесплатного обслуживания</string>
+    <string name="youtube_description" translatable="false">Инвестиции в акции, облигации, создание инвестиционного портфеля. Прогнозы, анализ, оценка справедливой стоимости компаний. Квалифицированный инвестор.</string>
+    <string name="telegram_title" translatable="false">Опыт инвестора</string>
+    <string name="telegram_description" translatable="false">Телеграм-канал про инвестиции, анализ компаний</string>
+    <string name="course1_title" translatable="false">Курс "Оценка и анализ компаний"</string>
+    <string name="course1_description" translatable="false">Целью курса является возможность самостоятельной оценки и анализа компаний инвестором исходя из комплексного подхода с различных сторон для объективности полученных результатов. Выявлении наиболее перспективных активов для инвестиций</string>
+    <string name="course2_title" translatable="false">Курс «Поиск идей для инвестиций»</string>
+    <string name="course2_description" translatable="false">Целью курса является передача опыта автором по подбору компаний, интересных ко входу в текущий период времени с использованием разносторонних инструментов и подходов</string>
+    <string name="about_description" translatable="false">Приложение создано для быстрого поиска информации об эмитентах на youtube-канале "Опыт инвестора". Данное приложение не является официальным и автор канала за представленную информацию ответственность не несет.</string>
+    <string name="warning" translatable="false">Помните, что любые инвестиции связаны с риском!</string>
+    <string name="design_author" translatable="false">Дизайн: Лебедева Алиса</string>
+    <string name="app_author" translatable="false">Разработчик: Андрей Нивинский</string>
+    <string name="design_contact" translatable="false">telegram:@White_Bird_Alisa</string>
+    <string name="app_contact" translatable="false">telegram:@dachecker90</string>
+    <string name="inter_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
+</resources>
