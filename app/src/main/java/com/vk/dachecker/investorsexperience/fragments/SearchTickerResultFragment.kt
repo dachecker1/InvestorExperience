@@ -19,10 +19,11 @@ import com.vk.dachecker.investorsexperience.adapters.TickerCardAdapter
 import com.vk.dachecker.investorsexperience.databinding.FragmentSearchTickerResultBinding
 import com.vk.dachecker.investorsexperience.db.Company
 import com.vk.dachecker.investorsexperience.db.SharedViewModel
+import com.vk.dachecker.investorsexperience.utils.ShareHelper
 
-class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener {
+class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener, TickerCardAdapter.ShareListener {
     private var binding : FragmentSearchTickerResultBinding? = null
-    private val adapter = TickerCardAdapter(this)
+    private val adapter = TickerCardAdapter(this, this)
     private lateinit var viewModel : SharedViewModel
     private var iAd : InterstitialAd? = null
 //    private var adShowCounter = 0
@@ -115,6 +116,16 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         })
     }
 
+    override fun onShareClick(item: Company) {
+        startActivity(
+            Intent.createChooser(
+                ShareHelper.shareTickerVideo(
+                    item
+                ), "Share by"
+            )
+        )
+    }
+
     companion object {
         @JvmStatic
         fun newInstance() = SearchTickerResultFragment()
@@ -145,6 +156,8 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         binding!!.adView2.destroy()
         binding = null
     }
+
+
 
 
 }

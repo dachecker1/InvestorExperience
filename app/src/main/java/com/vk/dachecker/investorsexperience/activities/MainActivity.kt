@@ -18,6 +18,7 @@ import com.vk.dachecker.investorsexperience.fragments.ListFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var viewModel : SharedViewModel
+    private var isListFragmentOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -25,9 +26,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
         viewModel.getFirstList()
-        (application as AppMainState).showAdIfAvailable(this){
+//        (application as AppMainState).showAdIfAvailable(this){
+//
+//        }
 
-        }
 
         supportFragmentManager
             .beginTransaction()
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding.bNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.search -> {
+                    isListFragmentOpen = false
                     viewModel.sortedListOfStockLiveData.value = arrayListOf()
                     supportFragmentManager
                         .beginTransaction()
@@ -44,12 +47,17 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.list -> {
-                    openFrag(ListFragment.newInstance(),R.id.placeHolder)
+                    if(!isListFragmentOpen) {
+                        openFrag(ListFragment.newInstance(), R.id.placeHolder)
+                        isListFragmentOpen = true
+                    }
                 }
                 R.id.links -> {
+                    isListFragmentOpen = false
                     openFrag(LinksFragment.newInstance(), R.id.placeHolder)
                 }
                 R.id.about ->{
+                    isListFragmentOpen = false
                     openFrag(AboutFragment.newInstance(), R.id.placeHolder)
                 }
             }

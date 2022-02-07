@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.ads.AdRequest
@@ -17,12 +18,14 @@ import com.vk.dachecker.investorsexperience.adapters.TickerCardAdapter
 import com.vk.dachecker.investorsexperience.databinding.FragmentListBinding
 import com.vk.dachecker.investorsexperience.db.Company
 import com.vk.dachecker.investorsexperience.db.SharedViewModel
+import com.vk.dachecker.investorsexperience.utils.ShareHelper
 
 
-class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener {
-    private var binding : FragmentListBinding? = null
-    private lateinit var viewModel : SharedViewModel
-    private val adapter = TickerCardAdapter(this)
+class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
+    TickerCardAdapter.ShareListener {
+    private var binding: FragmentListBinding? = null
+    private lateinit var viewModel: SharedViewModel
+    private val adapter = TickerCardAdapter(this, this)
 
 
     override fun onCreateView(
@@ -53,18 +56,29 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener {
     }
 
     override fun onItemClick(item: Company) {
-        Toast.makeText(context,item.ticker, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, item.ticker, Toast.LENGTH_SHORT).show()
         val uri = Uri.parse(item.url)
-        val url : String = item.url.substringAfter('=')
+        val url: String = item.url.substringAfter('=')
         val id = uri.getQueryParameter("v")
         val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
         val webIntent = Intent(
             Intent.ACTION_VIEW,
-            Uri.parse("http://www.youtube.com/watch?v=$url"))
+            Uri.parse("http://www.youtube.com/watch?v=$url")
+        )
         this.startActivity(webIntent)
     }
 
-    private fun initAdMod(){
+    override fun onShareClick(item: Company) {
+        startActivity(
+            Intent.createChooser(
+                ShareHelper.shareTickerVideo(
+                    item
+                ), getString(R.string.share_by)
+            )
+        )
+    }
+
+    private fun initAdMod() {
         MobileAds.initialize(requireActivity()) //передать context
         val adRequest = AdRequest.Builder().build()
         binding!!.adView3.loadAd(adRequest)
@@ -84,5 +98,6 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener {
         super.onDestroyView()
         binding!!.adView3.destroy()
         binding = null
+        viewModel.companyListLiveData.removeObservers(this)
     }
 }

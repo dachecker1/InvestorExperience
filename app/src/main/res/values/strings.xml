@@ -30,6 +30,7 @@
     <string name="app_author" translatable="false">Разработчик: Андрей Нивинский</string>
     <string name="design_contact" translatable="false">telegram:@White_Bird_Alisa</string>
     <string name="app_contact" translatable="false">telegram:@dachecker90</string>
-    <string name="inter_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="inter_ad_id" translatable="false">ca-app-pub-8884831632096451/4850213879</string>
+    <string name="share_by" translatable="false">Поделиться с помощью</string>
 
 </resources>

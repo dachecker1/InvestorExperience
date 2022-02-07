@@ -10,13 +10,13 @@ import com.vk.dachecker.investorsexperience.databinding.CardInfoBinding
 import com.vk.dachecker.investorsexperience.db.Company
 
 
-class TickerCardAdapter(var clickListener: OnTickerCardClickListener) :
+class TickerCardAdapter(var clickListener: OnTickerCardClickListener, var clickShare : ShareListener) :
 RecyclerView.Adapter<TickerCardAdapter.TickerCardViewHolder>(){
 
     class TickerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = CardInfoBinding.bind(view)
 
-        fun initialize(company: Company, action: OnTickerCardClickListener) = with(binding){
+        fun initialize(company: Company, action: OnTickerCardClickListener, share : ShareListener) = with(binding){
             tvTicker.text = company.ticker
             tvDescription.text = company.description
             tvDate.text = company.date
@@ -24,6 +24,10 @@ RecyclerView.Adapter<TickerCardAdapter.TickerCardViewHolder>(){
             //если не сработает, добавить в конструктор листенера позицию
             itemView.setOnClickListener {
                 action.onItemClick(company)
+            }
+
+            imShare.setOnClickListener {
+                share.onShareClick(company)
             }
         }
     }
@@ -37,7 +41,7 @@ RecyclerView.Adapter<TickerCardAdapter.TickerCardViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: TickerCardViewHolder, position: Int) {
-        holder.initialize(result.get(position), clickListener)
+        holder.initialize(result.get(position), clickListener, clickShare)
     }
 
     override fun getItemCount(): Int {
@@ -47,6 +51,10 @@ RecyclerView.Adapter<TickerCardAdapter.TickerCardViewHolder>(){
     //если не сработает, то добавить в конструктор position: Int
     interface OnTickerCardClickListener{
         fun onItemClick(item: Company)
+    }
+
+    interface ShareListener{
+        fun onShareClick(item: Company)
     }
 
     companion object {
