@@ -6,8 +6,7 @@ import com.vk.dachecker.investorsexperience.db.Company
 object ShareHelper {
     fun shareTickerVideo(company: Company) : Intent {
         val intent = Intent(Intent.ACTION_SEND)
-//        intent.type = "text|plane"
-        intent.type = "*/*"
+        intent.type = "text/plane"
         intent.apply {
             putExtra(Intent.EXTRA_TEXT, makeShareText(company))
         }
