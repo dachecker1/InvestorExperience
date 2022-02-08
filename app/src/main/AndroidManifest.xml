@@ -3,9 +3,10 @@
     package="com.vk.dachecker.investorsexperience">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!--            android:windowSoftInputMode="stateVisible|adjustResize"-->
-<!--    android:name=".activities.AppMainState"-->
+    <!--    android:name=".activities.AppMainState"-->
     <application
 
         android:allowBackup="true"
@@ -17,8 +18,8 @@
         <activity
             android:name=".activities.MainActivity"
 
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +29,7 @@
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8884831632096451~9525817876"/>
+            android:value="ca-app-pub-8884831632096451~9525817876" />
     </application>
 
 </manifest>

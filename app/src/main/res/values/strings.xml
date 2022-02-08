@@ -32,5 +32,6 @@
     <string name="app_contact" translatable="false">telegram:@dachecker90</string>
     <string name="inter_ad_id" translatable="false">ca-app-pub-8884831632096451/4850213879</string>
     <string name="share_by" translatable="false">Поделиться с помощью</string>
+    <string name="connection_lost" translatable="false">Нет соединения с интернетом</string>
 
 </resources>
