@@ -12,17 +12,15 @@ import com.vk.dachecker.investorsexperience.db.Company
 
 
 class AllTickersAdapter(var clickListener: OnTickerCardClickListener) :
-RecyclerView.Adapter<AllTickersAdapter.TickerCardViewHolder>(){
+    RecyclerView.Adapter<AllTickersAdapter.TickerCardViewHolder>() {
 
     var itemList = listOf<String>()
 
     class TickerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ListOfTickersBinding.bind(view)
 
-        fun initialize(ticker : String, action: OnTickerCardClickListener) = with(binding){
+        fun initialize(ticker: String, action: OnTickerCardClickListener) = with(binding) {
             tvTicker.text = ticker
-
-            //если не сработает, добавить в конструктор листенера позицию
             itemView.setOnClickListener {
                 action.onItemClick(ticker)
             }
@@ -33,7 +31,8 @@ RecyclerView.Adapter<AllTickersAdapter.TickerCardViewHolder>(){
         parent: ViewGroup,
         viewType: Int
     ): TickerCardViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_of_tickers, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_of_tickers, parent, false)
         return TickerCardViewHolder(view)
     }
 
@@ -45,11 +44,7 @@ RecyclerView.Adapter<AllTickersAdapter.TickerCardViewHolder>(){
         return itemList.size
     }
 
-    //если не сработает, то добавить в конструктор position: Int
-    interface OnTickerCardClickListener{
+    interface OnTickerCardClickListener {
         fun onItemClick(item: String)
     }
-
-//    companion object {
-//        var result = arrayListOf<String>()}
 }

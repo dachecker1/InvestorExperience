@@ -26,7 +26,6 @@ class BillingManager(val activity: AppCompatActivity) {
             override fun onBillingSetupFinished(p0: BillingResult) {
                 getItem()
             }
-
         })
     }
 
@@ -64,7 +63,6 @@ class BillingManager(val activity: AppCompatActivity) {
             }
         }
     }
-
 
     //подтверждаем покупку, которую нельзя употребить. То есть удаляем рекламу раз и навсегда
     private fun nonConsumableItem(purchase: Purchase) {

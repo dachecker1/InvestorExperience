@@ -27,7 +27,6 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
     private lateinit var viewModel: SharedViewModel
     private val adapter = TickerCardAdapter(this, this)
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

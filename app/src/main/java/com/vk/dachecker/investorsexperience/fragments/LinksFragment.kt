@@ -12,9 +12,7 @@ import com.vk.dachecker.investorsexperience.databinding.FragmentLinksBinding
 
 
 class LinksFragment : Fragment() {
-    private var binding : FragmentLinksBinding? = null
-
-
+    private var binding: FragmentLinksBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,17 +27,24 @@ class LinksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             cvBroker.setOnClickListener {
-                val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tinkoff.ru/sl/35K9sv6xl3C"))
+                val i =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tinkoff.ru/sl/35K9sv6xl3C"))
                 startActivity(i)
             }
 
             cvCourse1.setOnClickListener {
-                val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://xn--80adjkzeedoigf4i.xn--p1ai/course1"))
+                val i = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://xn--80adjkzeedoigf4i.xn--p1ai/course1")
+                )
                 startActivity(i)
             }
 
             cvCourse2.setOnClickListener {
-                val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://xn--80adjkzeedoigf4i.xn--p1ai/course2"))
+                val i = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://xn--80adjkzeedoigf4i.xn--p1ai/course2")
+                )
                 startActivity(i)
             }
 
@@ -49,12 +54,13 @@ class LinksFragment : Fragment() {
             }
 
             cvYoutube.setOnClickListener {
-                val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UC7RMUZkM3FPGFgQXqN8gB9A"))
+                val i = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.youtube.com/channel/UC7RMUZkM3FPGFgQXqN8gB9A")
+                )
                 startActivity(i)
             }
         }
-
-
     }
 
     companion object {

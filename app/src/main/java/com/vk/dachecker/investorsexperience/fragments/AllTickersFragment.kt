@@ -15,9 +15,9 @@ import com.vk.dachecker.investorsexperience.db.SharedViewModel
 import kotlinx.coroutines.channels.ticker
 
 class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListener {
-    private var binding : FragmentAllTickersBinding? = null
+    private var binding: FragmentAllTickersBinding? = null
     private val adapter = AllTickersAdapter(this)
-   private lateinit var viewModel : SharedViewModel
+    private lateinit var viewModel: SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +31,13 @@ class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListen
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
-        viewModel.listOfStockLiveData.observe(this, {it->
+        viewModel.listOfStockLiveData.observe(this, { it ->
             val listOfStock = mutableListOf<String>()
-            for(i in 0 until it.size - 1){
+            for (i in 0 until it.size - 1) {
                 listOfStock.add(it[i].ticker)
             }
-            val distinctListOfStock  = listOfStock.distinct()
-            val sortedList  = distinctListOfStock.sorted()
+            val distinctListOfStock = listOfStock.distinct()
+            val sortedList = distinctListOfStock.sorted()
 
             binding?.apply {
                 rcView.layoutManager = GridLayoutManager(context, 4)
@@ -48,7 +48,7 @@ class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListen
     }
 
     companion object {
-        fun newInstance() =AllTickersFragment()
+        fun newInstance() = AllTickersFragment()
     }
 
     override fun onItemClick(item: String) {

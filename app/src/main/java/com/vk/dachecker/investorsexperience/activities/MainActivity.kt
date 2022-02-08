@@ -16,11 +16,11 @@ import com.vk.dachecker.investorsexperience.fragments.ListFragment
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-    private lateinit var viewModel : SharedViewModel
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: SharedViewModel
     private var isListFragmentOpen = false
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -30,14 +30,13 @@ class MainActivity : AppCompatActivity() {
 //
 //        }
 
-
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.placeHolder, SearchFragment())
             .commit()
 
         binding.bNav.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.search -> {
                     isListFragmentOpen = false
                     viewModel.sortedListOfStockLiveData.value = arrayListOf()
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.list -> {
-                    if(!isListFragmentOpen) {
+                    if (!isListFragmentOpen) {
                         openFrag(ListFragment.newInstance(), R.id.placeHolder)
                         isListFragmentOpen = true
                     }
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                     isListFragmentOpen = false
                     openFrag(LinksFragment.newInstance(), R.id.placeHolder)
                 }
-                R.id.about ->{
+                R.id.about -> {
                     isListFragmentOpen = false
                     openFrag(AboutFragment.newInstance(), R.id.placeHolder)
                 }
@@ -71,5 +70,4 @@ class MainActivity : AppCompatActivity() {
             .replace(idHolder, f)
             .commit()
     }
-
 }

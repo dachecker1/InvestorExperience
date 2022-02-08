@@ -29,7 +29,6 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
 //    private var adShowCounter = 0
 //    private val adShowCounterMax = 2
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +43,6 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         initAdMod()
 
-        //activity as LifecycleOwner
         viewModel.tickerName.observe(this, {
             binding!!.tvTicker.text = it.uppercase()
         })
@@ -156,8 +154,4 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         binding!!.adView2.destroy()
         binding = null
     }
-
-
-
-
 }

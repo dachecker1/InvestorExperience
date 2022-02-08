@@ -25,13 +25,11 @@ class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding? = null
     private lateinit var viewModel : SharedViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater)
-        //заглушить кнопку поиска по готовой базе
         return binding!!.root
     }
 
@@ -70,7 +68,6 @@ class SearchFragment : Fragment() {
                 })
             }
         }
-
 
         binding?.cvTicker?.isActivated = viewModel.listOfStockLiveData.value?.isNotEmpty() == true
         binding?.cvTicker?.setOnClickListener {

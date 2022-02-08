@@ -10,8 +10,7 @@ import com.vk.dachecker.investorsexperience.databinding.FragmentAboutBinding
 
 
 class AboutFragment : Fragment() {
-    private var binding : FragmentAboutBinding? = null
-
+    private var binding: FragmentAboutBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +27,6 @@ class AboutFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance() = AboutFragment()
     }

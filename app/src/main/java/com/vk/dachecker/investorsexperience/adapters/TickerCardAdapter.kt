@@ -10,26 +10,29 @@ import com.vk.dachecker.investorsexperience.databinding.CardInfoBinding
 import com.vk.dachecker.investorsexperience.db.Company
 
 
-class TickerCardAdapter(var clickListener: OnTickerCardClickListener, var clickShare : ShareListener) :
-RecyclerView.Adapter<TickerCardAdapter.TickerCardViewHolder>(){
+class TickerCardAdapter(
+    var clickListener: OnTickerCardClickListener,
+    var clickShare: ShareListener
+) :
+    RecyclerView.Adapter<TickerCardAdapter.TickerCardViewHolder>() {
 
     class TickerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = CardInfoBinding.bind(view)
 
-        fun initialize(company: Company, action: OnTickerCardClickListener, share : ShareListener) = with(binding){
-            tvTicker.text = company.ticker
-            tvDescription.text = company.description
-            tvDate.text = company.date
+        fun initialize(company: Company, action: OnTickerCardClickListener, share: ShareListener) =
+            with(binding) {
+                tvTicker.text = company.ticker
+                tvDescription.text = company.description
+                tvDate.text = company.date
 
-            //если не сработает, добавить в конструктор листенера позицию
-            itemView.setOnClickListener {
-                action.onItemClick(company)
-            }
+                itemView.setOnClickListener {
+                    action.onItemClick(company)
+                }
 
-            imShare.setOnClickListener {
-                share.onShareClick(company)
+                imShare.setOnClickListener {
+                    share.onShareClick(company)
+                }
             }
-        }
     }
 
     override fun onCreateViewHolder(
@@ -48,15 +51,15 @@ RecyclerView.Adapter<TickerCardAdapter.TickerCardViewHolder>(){
         return result.size
     }
 
-    //если не сработает, то добавить в конструктор position: Int
-    interface OnTickerCardClickListener{
+    interface OnTickerCardClickListener {
         fun onItemClick(item: Company)
     }
 
-    interface ShareListener{
+    interface ShareListener {
         fun onShareClick(item: Company)
     }
 
     companion object {
-        var result = arrayListOf<Company>()}
+        var result = arrayListOf<Company>()
+    }
 }
