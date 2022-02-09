@@ -16,25 +16,6 @@ class TickerCardAdapter(
 ) :
     RecyclerView.Adapter<TickerCardAdapter.TickerCardViewHolder>() {
 
-    class TickerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = CardInfoBinding.bind(view)
-
-        fun initialize(company: Company, action: OnTickerCardClickListener, share: ShareListener) =
-            with(binding) {
-                tvTicker.text = company.ticker
-                tvDescription.text = company.description
-                tvDate.text = company.date
-
-                itemView.setOnClickListener {
-                    action.onItemClick(company)
-                }
-
-                imShare.setOnClickListener {
-                    share.onShareClick(company)
-                }
-            }
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -57,6 +38,25 @@ class TickerCardAdapter(
 
     interface ShareListener {
         fun onShareClick(item: Company)
+    }
+
+    class TickerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val binding = CardInfoBinding.bind(view)
+
+        fun initialize(company: Company, action: OnTickerCardClickListener, share: ShareListener) =
+            with(binding) {
+                tvTicker.text = company.ticker
+                tvDescription.text = company.description
+                tvDate.text = company.date
+
+                itemView.setOnClickListener {
+                    action.onItemClick(company)
+                }
+
+                imShare.setOnClickListener {
+                    share.onShareClick(company)
+                }
+            }
     }
 
     companion object {

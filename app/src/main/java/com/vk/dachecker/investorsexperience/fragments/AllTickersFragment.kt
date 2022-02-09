@@ -29,26 +29,15 @@ class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        viewModel.listOfStockLiveData.observe(this, { it ->
-            val listOfStock = mutableListOf<String>()
-            for (i in 0 until it.size - 1) {
-                listOfStock.add(it[i].ticker)
-            }
-            val distinctListOfStock = listOfStock.distinct()
-            val sortedList = distinctListOfStock.sorted()
-
+        viewModel.listOfStockLiveData.observe(this, { _ ->
             binding?.apply {
                 rcView.layoutManager = GridLayoutManager(context, 4)
-                adapter.itemList = sortedList
+                adapter.itemList = viewModel.getTickerList()
                 rcView.adapter = adapter
             }
         })
-    }
-
-    companion object {
-        fun newInstance() = AllTickersFragment()
     }
 
     override fun onItemClick(item: String) {
@@ -57,5 +46,9 @@ class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListen
         parentFragmentManager.beginTransaction()
             .replace(R.id.placeHolder, SearchTickerResultFragment.newInstance())
             .commit()
+    }
+
+    companion object {
+        fun newInstance() = AllTickersFragment()
     }
 }

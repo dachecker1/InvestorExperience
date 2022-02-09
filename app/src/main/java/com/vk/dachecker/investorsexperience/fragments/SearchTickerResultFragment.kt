@@ -21,11 +21,12 @@ import com.vk.dachecker.investorsexperience.db.Company
 import com.vk.dachecker.investorsexperience.db.SharedViewModel
 import com.vk.dachecker.investorsexperience.utils.ShareHelper
 
-class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener, TickerCardAdapter.ShareListener {
-    private var binding : FragmentSearchTickerResultBinding? = null
+class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
+    TickerCardAdapter.ShareListener {
+    private var binding: FragmentSearchTickerResultBinding? = null
     private val adapter = TickerCardAdapter(this, this)
-    private lateinit var viewModel : SharedViewModel
-    private var iAd : InterstitialAd? = null
+    private lateinit var viewModel: SharedViewModel
+    private var iAd: InterstitialAd? = null
 //    private var adShowCounter = 0
 //    private val adShowCounterMax = 2
 
@@ -48,7 +49,7 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         })
 
         viewModel.sortedListOfStockLiveData.observe(activity as LifecycleOwner, {
-             TickerCardAdapter.result = it
+            TickerCardAdapter.result = it
         })
 
         binding?.apply {
@@ -57,23 +58,39 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         }
     }
 
-    private fun loadInterAd(){
-        val request = AdRequest.Builder().build()
-        InterstitialAd.load(context, getString(R.string.inter_ad_id), request,
-        object : InterstitialAdLoadCallback(){
-            override fun onAdFailedToLoad(ad: LoadAdError) {
-                iAd = null
-            }
-
-            override fun onAdLoaded(ad: InterstitialAd) {
-                iAd = ad
-            }
-        })
+    override fun onResume() {
+        super.onResume()
+        binding!!.adView2.resume()
     }
 
-    private fun showInterAd(adListener : AdListener){
-        if(iAd != null) {
-            iAd?.fullScreenContentCallback = object : FullScreenContentCallback(){
+    override fun onPause() {
+        super.onPause()
+        binding!!.adView2.pause()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding!!.adView2.destroy()
+        binding = null
+    }
+
+    private fun loadInterAd() {
+        val request = AdRequest.Builder().build()
+        InterstitialAd.load(context, getString(R.string.inter_ad_id), request,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(ad: LoadAdError) {
+                    iAd = null
+                }
+
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    iAd = ad
+                }
+            })
+    }
+
+    private fun showInterAd(adListener: AdListener) {
+        if (iAd != null) {
+            iAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     iAd = null
                     loadInterAd()
@@ -98,17 +115,18 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         }
     }
 
-    override fun onItemClick(company: Company){
-        showInterAd(object : AdListener{
+    override fun onItemClick(company: Company) {
+        showInterAd(object : AdListener {
             override fun onFinish() {
-                Toast.makeText(context,company.ticker, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, company.ticker, Toast.LENGTH_SHORT).show()
                 val uri = Uri.parse(company.url)
-                val url : String = company.url.substringAfter('=')
+                val url: String = company.url.substringAfter('=')
                 val id = uri.getQueryParameter("v")
                 val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
                 val webIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("http://www.youtube.com/watch?v=$url"))
+                    Uri.parse("http://www.youtube.com/watch?v=$url")
+                )
                 startActivity(webIntent)
             }
         })
@@ -124,34 +142,18 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         )
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = SearchTickerResultFragment()
-    }
-
-    interface AdListener{
-        fun onFinish()
-    }
-
-    private fun initAdMod(){
+    private fun initAdMod() {
         MobileAds.initialize(requireActivity()) //передать context
         val adRequest = AdRequest.Builder().build()
         binding!!.adView2.loadAd(adRequest)
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding!!.adView2.resume()
+    interface AdListener {
+        fun onFinish()
     }
 
-    override fun onPause() {
-        super.onPause()
-        binding!!.adView2.pause()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding!!.adView2.destroy()
-        binding = null
+    companion object {
+        @JvmStatic
+        fun newInstance() = SearchTickerResultFragment()
     }
 }
