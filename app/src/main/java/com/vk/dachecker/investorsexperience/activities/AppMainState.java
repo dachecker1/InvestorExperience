@@ -24,7 +24,7 @@ import java.util.Date;
 
 
 public class AppMainState extends Application implements Application.ActivityLifecycleCallbacks, LifecycleObserver {
-
+//используется для рекламы. Выключил вызов в манифесте. Чуть позже активирую. Класс готов.
 
     private AppOpenAdManager appOpenAdManager;
     private Activity currentActivity;
@@ -35,22 +35,28 @@ public class AppMainState extends Application implements Application.ActivityLif
         this.registerActivityLifecycleCallbacks(this);
         MobileAds.initialize(
                 this,
-                initializationStatus -> {});
+                initializationStatus -> {
+                });
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         appOpenAdManager = new AppOpenAdManager();
     }
 
-    /** LifecycleObserver method that shows the app open ad when the app moves to foreground. */
+    /**
+     * LifecycleObserver method that shows the app open ad when the app moves to foreground.
+     */
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     protected void onMoveToForeground() {
         // Show the ad (if available) when the app moves to foreground.
         appOpenAdManager.showAdIfAvailable(currentActivity);
     }
 
-    /** ActivityLifecycleCallback methods. */
+    /**
+     * ActivityLifecycleCallback methods.
+     */
     @Override
-    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {}
+    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+    }
 
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
@@ -64,24 +70,29 @@ public class AppMainState extends Application implements Application.ActivityLif
     }
 
     @Override
-    public void onActivityResumed(@NonNull Activity activity) {}
+    public void onActivityResumed(@NonNull Activity activity) {
+    }
 
     @Override
-    public void onActivityPaused(@NonNull Activity activity) {}
+    public void onActivityPaused(@NonNull Activity activity) {
+    }
 
     @Override
-    public void onActivityStopped(@NonNull Activity activity) {}
+    public void onActivityStopped(@NonNull Activity activity) {
+    }
 
     @Override
-    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {}
+    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+    }
 
     @Override
-    public void onActivityDestroyed(@NonNull Activity activity) {}
+    public void onActivityDestroyed(@NonNull Activity activity) {
+    }
 
     /**
      * Shows an app open ad.
      *
-     * @param activity the activity that shows the app open ad
+     * @param activity                 the activity that shows the app open ad
      * @param onShowAdCompleteListener the listener to be notified when an app open ad is complete
      */
     public void showAdIfAvailable(
@@ -100,7 +111,9 @@ public class AppMainState extends Application implements Application.ActivityLif
         void onShowAdComplete();
     }
 
-    /** Inner class that loads and shows app open ads. */
+    /**
+     * Inner class that loads and shows app open ads.
+     */
     private static class AppOpenAdManager {
 
         private static final String LOG_TAG = "AppOpenAdManager";
@@ -110,11 +123,16 @@ public class AppMainState extends Application implements Application.ActivityLif
         private boolean isLoadingAd = false;
         private boolean isShowingAd = false;
 
-        /** Keep track of the time an app open ad is loaded to ensure you don't show an expired ad. */
+        /**
+         * Keep track of the time an app open ad is loaded to ensure you don't show an expired ad.
+         */
         private long loadTime = 0;
 
-        /** Constructor. */
-        public AppOpenAdManager() {}
+        /**
+         * Constructor.
+         */
+        public AppOpenAdManager() {
+        }
 
         /**
          * Load an ad.
@@ -164,14 +182,18 @@ public class AppMainState extends Application implements Application.ActivityLif
                     });
         }
 
-        /** Check if ad was loaded more than n hours ago. */
+        /**
+         * Check if ad was loaded more than n hours ago.
+         */
         private boolean wasLoadTimeLessThanNHoursAgo(long numHours) {
             long dateDifference = (new Date()).getTime() - loadTime;
             long numMilliSecondsPerHour = 3600000;
             return (dateDifference < (numMilliSecondsPerHour * numHours));
         }
 
-        /** Check if ad exists and can be shown. */
+        /**
+         * Check if ad exists and can be shown.
+         */
         private boolean isAdAvailable() {
             // Ad references in the app open beta will time out after four hours, but this time limit
             // may change in future beta versions. For details, see:
@@ -198,7 +220,7 @@ public class AppMainState extends Application implements Application.ActivityLif
         /**
          * Show the ad if one isn't already showing.
          *
-         * @param activity the activity that shows the app open ad
+         * @param activity                 the activity that shows the app open ad
          * @param onShowAdCompleteListener the listener to be notified when an app open ad is complete
          */
         private void showAdIfAvailable(
@@ -244,7 +266,7 @@ public class AppMainState extends Application implements Application.ActivityLif
 
                             Log.d(LOG_TAG, "onAdFailedToShowFullScreenContent: " + adError.getMessage());
                             //Toast.makeText(activity, "onAdFailedToShowFullScreenContent", Toast.LENGTH_SHORT)
-                                    //.show();
+                            //.show();
 
                             onShowAdCompleteListener.onShowAdComplete();
                             loadAd(activity);

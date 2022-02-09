@@ -1,4 +1,4 @@
-package com.vk.dachecker.investorsexperience.db
+package com.vk.dachecker.investorsexperience.model
 
 import java.io.Serializable
 

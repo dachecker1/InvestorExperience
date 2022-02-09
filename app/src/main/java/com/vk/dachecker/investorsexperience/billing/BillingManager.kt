@@ -2,7 +2,8 @@ package com.vk.dachecker.investorsexperience.billing
 
 import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
-
+//класс для отключения рекламы. Не сделал еще кнопку в разметке.
+//после доработки класс активирую. В настоящее время класс почти готов. Но пару строк и методов надо еще дописать
 class BillingManager(val activity: AppCompatActivity) {
     private var bClient: BillingClient? = null
 

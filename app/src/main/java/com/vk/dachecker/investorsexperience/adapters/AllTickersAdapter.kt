@@ -5,10 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vk.dachecker.investorsexperience.R
-import com.vk.dachecker.investorsexperience.activities.MainActivity
-import com.vk.dachecker.investorsexperience.databinding.CardInfoBinding
 import com.vk.dachecker.investorsexperience.databinding.ListOfTickersBinding
-import com.vk.dachecker.investorsexperience.db.Company
 
 
 class AllTickersAdapter(var clickListener: OnTickerCardClickListener) :

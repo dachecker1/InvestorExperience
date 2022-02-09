@@ -1,7 +1,7 @@
 package com.vk.dachecker.investorsexperience.utils
 
 import android.content.Intent
-import com.vk.dachecker.investorsexperience.db.Company
+import com.vk.dachecker.investorsexperience.model.Company
 
 object ShareHelper {
     fun shareTickerVideo(company: Company) : Intent {

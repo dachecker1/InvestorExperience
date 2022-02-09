@@ -17,7 +17,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.vk.dachecker.investorsexperience.R
 import com.vk.dachecker.investorsexperience.databinding.FragmentSearchBinding
-import com.vk.dachecker.investorsexperience.db.SharedViewModel
+import com.vk.dachecker.investorsexperience.model.SharedViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 

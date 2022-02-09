@@ -5,9 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vk.dachecker.investorsexperience.R
-import com.vk.dachecker.investorsexperience.activities.MainActivity
 import com.vk.dachecker.investorsexperience.databinding.CardInfoBinding
-import com.vk.dachecker.investorsexperience.db.Company
+import com.vk.dachecker.investorsexperience.model.Company
 
 
 class TickerCardAdapter(

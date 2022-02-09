@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.ads.AdRequest
@@ -16,8 +15,8 @@ import com.google.android.gms.ads.MobileAds
 import com.vk.dachecker.investorsexperience.R
 import com.vk.dachecker.investorsexperience.adapters.TickerCardAdapter
 import com.vk.dachecker.investorsexperience.databinding.FragmentListBinding
-import com.vk.dachecker.investorsexperience.db.Company
-import com.vk.dachecker.investorsexperience.db.SharedViewModel
+import com.vk.dachecker.investorsexperience.model.Company
+import com.vk.dachecker.investorsexperience.model.SharedViewModel
 import com.vk.dachecker.investorsexperience.utils.ShareHelper
 
 
@@ -41,7 +40,7 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
         initAdMod()
 
         viewModel.companyListLiveData.observe(this, {
-            TickerCardAdapter.result = it
+            TickerCardAdapter.result = viewModel.getCompanyList()
         })
 
         binding?.apply {

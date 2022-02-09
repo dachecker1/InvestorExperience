@@ -17,8 +17,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.vk.dachecker.investorsexperience.R
 import com.vk.dachecker.investorsexperience.adapters.TickerCardAdapter
 import com.vk.dachecker.investorsexperience.databinding.FragmentSearchTickerResultBinding
-import com.vk.dachecker.investorsexperience.db.Company
-import com.vk.dachecker.investorsexperience.db.SharedViewModel
+import com.vk.dachecker.investorsexperience.model.Company
+import com.vk.dachecker.investorsexperience.model.SharedViewModel
 import com.vk.dachecker.investorsexperience.utils.ShareHelper
 
 class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
