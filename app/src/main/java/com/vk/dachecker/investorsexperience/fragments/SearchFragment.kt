@@ -77,42 +77,9 @@ class SearchFragment : Fragment() {
         }
 
         binding?.cvReferal?.setOnClickListener {
-            val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.vk.dachecker.solodinstocksearch"))
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse(SOLODIN_APP_LINK))
             startActivity(i)
         }
-    }
-
-    fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivityManager != null) {
-            val capabilities =
-                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SearchFragment()
-    }
-
-    private fun initAdMod(){
-        MobileAds.initialize(requireActivity()) //передать context
-        val adRequest = AdRequest.Builder().build()
-        binding!!.adView.loadAd(adRequest)
     }
 
     override fun onResume() {
@@ -129,6 +96,38 @@ class SearchFragment : Fragment() {
         super.onDestroy()
         binding!!.adView.destroy()
         binding = null
+    }
+
+    private fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun initAdMod(){
+        MobileAds.initialize(requireActivity()) //передать context
+        val adRequest = AdRequest.Builder().build()
+        binding!!.adView.loadAd(adRequest)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = SearchFragment()
+        const val SOLODIN_APP_LINK = "https://play.google.com/store/apps/details?id=com.vk.dachecker.solodinstocksearch"
     }
 
 }

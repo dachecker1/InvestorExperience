@@ -74,6 +74,30 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         binding = null
     }
 
+    override fun onItemClick(company: Company) {
+        showInterAd(object : AdListener {
+            override fun onFinish() {
+                Toast.makeText(context, company.ticker, Toast.LENGTH_SHORT).show()
+                val url: String = company.url.substringAfter('=')
+                val webIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("${ListFragment.URL_YOUTUBE}$url")
+                )
+                startActivity(webIntent)
+            }
+        })
+    }
+
+    override fun onShareClick(item: Company) {
+        startActivity(
+            Intent.createChooser(
+                ShareHelper.shareTickerVideo(
+                    item
+                ), getString(R.string.share_by)
+            )
+        )
+    }
+
     private fun loadInterAd() {
         val request = AdRequest.Builder().build()
         InterstitialAd.load(context, getString(R.string.inter_ad_id), request,
@@ -113,33 +137,6 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
 //            adShowCounter++
             adListener.onFinish()
         }
-    }
-
-    override fun onItemClick(company: Company) {
-        showInterAd(object : AdListener {
-            override fun onFinish() {
-                Toast.makeText(context, company.ticker, Toast.LENGTH_SHORT).show()
-                val uri = Uri.parse(company.url)
-                val url: String = company.url.substringAfter('=')
-                val id = uri.getQueryParameter("v")
-                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
-                val webIntent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("http://www.youtube.com/watch?v=$url")
-                )
-                startActivity(webIntent)
-            }
-        })
-    }
-
-    override fun onShareClick(item: Company) {
-        startActivity(
-            Intent.createChooser(
-                ShareHelper.shareTickerVideo(
-                    item
-                ), "Share by"
-            )
-        )
     }
 
     private fun initAdMod() {

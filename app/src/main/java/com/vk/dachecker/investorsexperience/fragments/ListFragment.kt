@@ -50,19 +50,29 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
         }
     }
 
-    companion object {
-        fun newInstance() = ListFragment()
+    override fun onResume() {
+        super.onResume()
+        binding!!.adView3.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding!!.adView3.pause()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding!!.adView3.destroy()
+        binding = null
+        viewModel.companyListLiveData.removeObservers(this)
     }
 
     override fun onItemClick(item: Company) {
         Toast.makeText(context, item.ticker, Toast.LENGTH_SHORT).show()
-        val uri = Uri.parse(item.url)
         val url: String = item.url.substringAfter('=')
-        val id = uri.getQueryParameter("v")
-        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
         val webIntent = Intent(
             Intent.ACTION_VIEW,
-            Uri.parse("http://www.youtube.com/watch?v=$url")
+            Uri.parse("$URL_YOUTUBE$url")
         )
         this.startActivity(webIntent)
     }
@@ -83,20 +93,8 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
         binding!!.adView3.loadAd(adRequest)
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding!!.adView3.resume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding!!.adView3.pause()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding!!.adView3.destroy()
-        binding = null
-        viewModel.companyListLiveData.removeObservers(this)
+    companion object {
+        const val URL_YOUTUBE = "http://www.youtube.com/watch?v="
+        fun newInstance() = ListFragment()
     }
 }
