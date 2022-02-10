@@ -44,8 +44,8 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
         viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         initAdMod()
 
-        viewModel.tickerName.observe(this, {
-            binding!!.tvTicker.text = it.uppercase()
+        viewModel.getTickerName().observe(this, {
+            binding?.tvTicker?.text = it.uppercase()
         })
 
         viewModel.getSelectedTicker().observe(activity as LifecycleOwner, {
@@ -60,17 +60,17 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
 
     override fun onResume() {
         super.onResume()
-        binding!!.adView2.resume()
+        binding?.adView2?.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        binding!!.adView2.pause()
+        binding?.adView2?.pause()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding!!.adView2.destroy()
+        binding?.adView2?.destroy()
         binding = null
     }
 

@@ -51,7 +51,7 @@ class SearchFragment : Fragment() {
                     cvSearch.visibility = View.INVISIBLE
                     progressBar.visibility = View.VISIBLE
                     viewModel.getSortedListByTicker(ticker)
-                    viewModel.tickerName.value = ticker
+                    viewModel.setTickerName(ticker)
 
                     viewModel.getSelectedTicker().observe(this@SearchFragment, {
                         if (it.isEmpty()) {

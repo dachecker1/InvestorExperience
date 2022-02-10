@@ -29,12 +29,12 @@ class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListen
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        viewModel.getOnlyTickerList().observe(this, { tickerList : List<String> ->
-            binding?.apply {
-                rcView.layoutManager = GridLayoutManager(context, 4)
-                adapter.itemList = tickerList
-                rcView.adapter = adapter
-            }
+        binding?.apply {
+            rcView.layoutManager = GridLayoutManager(context, 4)
+            rcView.adapter = adapter
+        }
+        viewModel.getOnlyTickerList().observe(this, {tickerList: List<String> ->
+            adapter.itemList = tickerList
         })
     }
 

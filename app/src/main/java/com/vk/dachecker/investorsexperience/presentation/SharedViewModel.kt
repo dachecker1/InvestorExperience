@@ -19,7 +19,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     //список выпусков по заданному тикеру
     private val sortedListOfStockLiveData = MutableLiveData<ArrayList<Company>>()
     private val onlyTickerListLivedata = MutableLiveData<List<String>>()
-    val tickerName = MutableLiveData<String>()
+    private val tickerName = MutableLiveData<String>()
 
     init {
         viewModelScope.launch {
@@ -28,6 +28,14 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
             listOfStockLiveData.postValue(response.listOfStock)
             onlyTickerListLivedata.postValue(response.onlyTickerList)
         }
+    }
+
+    fun setTickerName(ticker: String){
+        tickerName.value = ticker
+    }
+
+    fun getTickerName() : LiveData<String> {
+        return tickerName
     }
 
     fun getCompanyList() : LiveData<ArrayList<Company>>{
