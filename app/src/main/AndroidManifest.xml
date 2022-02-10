@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InvestorsExperience">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.vk.dachecker.investorsexperience.presentation.activities.activities.MainActivity"
 
             android:exported="true"
             android:screenOrientation="portrait">
