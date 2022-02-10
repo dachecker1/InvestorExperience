@@ -40,7 +40,7 @@ class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListen
 
     override fun onItemClick(item: String) {
         viewModel.getSortedListByTicker(item)
-        viewModel.tickerName.value = item
+        viewModel.setTickerName(item)
         parentFragmentManager.beginTransaction()
             .replace(R.id.placeHolder, SearchTickerResultFragment.newInstance())
             .commit()
