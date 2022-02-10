@@ -39,8 +39,8 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
         viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         initAdMod()
 
-        viewModel.companyListLiveData.observe(this, {
-            TickerCardAdapter.result = viewModel.getCompanyList()
+        viewModel.getCompanyList().observe(this, { companyList : ArrayList<Company> ->
+            TickerCardAdapter.result = companyList
         })
 
         binding?.apply {
@@ -63,7 +63,7 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
         super.onDestroyView()
         binding?.adView3?.destroy()
         binding = null
-        viewModel.companyListLiveData.removeObservers(this)
+        viewModel.getCompanyList().removeObservers(this)
     }
 
     override fun onItemClick(item: Company) {

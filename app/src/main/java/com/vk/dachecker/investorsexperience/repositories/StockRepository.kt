@@ -13,14 +13,13 @@ import retrofit2.Response
 
 class StockRepository() {
 
-    var mService: RetrofitServices = RetrofitClient.getClient()
+    var service: RetrofitServices = RetrofitClient.getClient()
     private val companyList = arrayListOf<Company>()
     private val listOfStock = arrayListOf<Company>()
     private val sortedListOfStock = arrayListOf<Company>()
 
-
     suspend fun getStockListFromDataBase(): CompanyLists {
-        val response = mService.getStockList()
+        val response = service.getStockList()
         if (response.isSuccessful) {
             val list = response.body()
             for (i in 0 until (list?.items?.size?.minus(1)!!)) {
@@ -53,7 +52,6 @@ class StockRepository() {
         )
     }
 
-
     fun getSortedListByTicker(ticker: String, sortedListCallBack: (List<Company>) -> Unit) {
         sortedListOfStock.clear()
         for (i in 0 until listOfStock.size - 1) {
@@ -63,17 +61,6 @@ class StockRepository() {
         }
         sortedListCallBack.invoke(sortedListOfStock)
     }
-
-    //метод, который создает неповторяющийся список тикеров, сортировка по алфавиту
-    //используется в SearchFragment при нажатии на кнопку cvTicker
-//    fun getOnlyTickerList(){
-//        val list = mutableListOf<String>()
-//        for (i in 0 until listOfStock.size - 1) {
-//            list.add(listOfStock[i].ticker)
-//        }
-//        val distinctListOfStock = list.distinct()
-//       distinctListOfStock.sorted()
-//    }
 
     companion object {
         private var repo: StockRepository? = null

@@ -8,19 +8,21 @@ import kotlinx.coroutines.*
 
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
-    var job: Job? = null
     private val repo = StockRepository.getInstanse()
+
     //    список всех выпусков, с тикерами и без
-    val companyListLiveData = MutableLiveData<ArrayList<Company>>()
+    private val companyListLiveData = MutableLiveData<ArrayList<Company>>()
+
     //список выпусков, в которых есть только тикеры
-    val listOfStockLiveData = MutableLiveData<ArrayList<Company>>()
+    private val listOfStockLiveData = MutableLiveData<ArrayList<Company>>()
+
     //список выпусков по заданному тикеру
-    val sortedListOfStockLiveData = MutableLiveData<ArrayList<Company>>()
-    val onlyTickerListLivedata = MutableLiveData<List<String>>()
+    private val sortedListOfStockLiveData = MutableLiveData<ArrayList<Company>>()
+    private val onlyTickerListLivedata = MutableLiveData<List<String>>()
     val tickerName = MutableLiveData<String>()
 
-    suspend fun downloadDataBase() {
-        job = CoroutineScope(Dispatchers.IO).launch {
+    init {
+        viewModelScope.launch {
             val response = repo.getStockListFromDataBase()
             companyListLiveData.postValue(response.companyList)
             listOfStockLiveData.postValue(response.listOfStock)
@@ -28,12 +30,8 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun getCompanyList(): ArrayList<Company> {
-        return companyListLiveData.value as ArrayList<Company>
-    }
-
-    fun getListOfStock(): ArrayList<Company> {
-        return listOfStockLiveData.value as ArrayList<Company>
+    fun getCompanyList() : LiveData<ArrayList<Company>>{
+        return companyListLiveData
     }
 
     fun getSortedListByTicker(ticker: String): ArrayList<Company> {
@@ -43,12 +41,11 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         return sortedListOfStockLiveData.value as ArrayList<Company>
     }
 
-    fun getSortedTickerList(): List<String>{
-        return onlyTickerListLivedata.value as List<String>
+    fun getSelectedTicker() : LiveData<ArrayList<Company>>{
+        return sortedListOfStockLiveData
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        job?.cancel()
+    fun getOnlyTickerList(): LiveData<List<String>> {
+        return onlyTickerListLivedata
     }
 }

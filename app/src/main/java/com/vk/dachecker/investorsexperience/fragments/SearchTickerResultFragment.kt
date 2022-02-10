@@ -48,7 +48,7 @@ class SearchTickerResultFragment : Fragment(), TickerCardAdapter.OnTickerCardCli
             binding!!.tvTicker.text = it.uppercase()
         })
 
-        viewModel.sortedListOfStockLiveData.observe(activity as LifecycleOwner, {
+        viewModel.getSelectedTicker().observe(activity as LifecycleOwner, {
             TickerCardAdapter.result = it
         })
 

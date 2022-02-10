@@ -18,22 +18,19 @@ import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
     private lateinit var viewModel: SharedViewModel
     private var isListFragmentOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
         viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
-        CoroutineScope(Dispatchers.Main).launch{
-            viewModel.downloadDataBase()
-        }
 
 //        (application as AppMainState).showAdIfAvailable(this){
-//
+//          активировать эти строчки, чтоб заработала реклама при старте приложения
 //        }
 
         supportFragmentManager
@@ -41,15 +38,11 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.placeHolder, SearchFragment())
             .commit()
 
-        binding.bNav.setOnItemSelectedListener {
+        binding?.bNav?.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.search -> {
                     isListFragmentOpen = false
-//                    viewModel.sortedListOfStockLiveData.value = arrayListOf()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.placeHolder, SearchFragment())
-                        .commit()
+                    openFrag(SearchFragment.newInstance(), R.id.placeHolder)
                 }
                 R.id.list -> {
                     if (!isListFragmentOpen) {
@@ -68,6 +61,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
     private fun openFrag(f: Fragment, idHolder: Int) {

@@ -13,17 +13,6 @@ class AllTickersAdapter(var clickListener: OnTickerCardClickListener) :
 
     var itemList = listOf<String>()
 
-    class TickerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = ListOfTickersBinding.bind(view)
-
-        fun initialize(ticker: String, action: OnTickerCardClickListener) = with(binding) {
-            tvTicker.text = ticker
-            itemView.setOnClickListener {
-                action.onItemClick(ticker)
-            }
-        }
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -43,5 +32,16 @@ class AllTickersAdapter(var clickListener: OnTickerCardClickListener) :
 
     interface OnTickerCardClickListener {
         fun onItemClick(item: String)
+    }
+
+    class TickerCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val binding = ListOfTickersBinding.bind(view)
+
+        fun initialize(ticker: String, action: OnTickerCardClickListener) = with(binding) {
+            tvTicker.text = ticker
+            itemView.setOnClickListener {
+                action.onItemClick(ticker)
+            }
+        }
     }
 }

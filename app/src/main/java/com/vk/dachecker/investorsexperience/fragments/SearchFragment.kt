@@ -18,12 +18,14 @@ import com.google.android.gms.ads.MobileAds
 import com.vk.dachecker.investorsexperience.R
 import com.vk.dachecker.investorsexperience.databinding.FragmentSearchBinding
 import com.vk.dachecker.investorsexperience.model.SharedViewModel
+import com.vk.dachecker.investorsexperience.utils.InternetConnection
 import kotlinx.coroutines.InternalCoroutinesApi
 
 
 class SearchFragment : Fragment() {
     private var binding: FragmentSearchBinding? = null
     private lateinit var viewModel : SharedViewModel
+    private var isOnline = InternetConnection()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +40,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         initAdMod()
-        if(isOnline(requireContext())){
+        if(isOnline.checkInternetConnection(requireContext())){
             binding?.tvInternerConnection?.visibility = View.GONE
         } else {
             binding?.tvInternerConnection?.visibility = View.VISIBLE
@@ -55,7 +57,7 @@ class SearchFragment : Fragment() {
                     viewModel.getSortedListByTicker(ticker)
                     viewModel.tickerName.value = ticker
 
-                    viewModel.sortedListOfStockLiveData.observe(this@SearchFragment, {
+                    viewModel.getSelectedTicker().observe(this@SearchFragment, {
                         if (it.isEmpty()) {
                             imLogo.setImageResource(R.drawable.ic_empty_result)
                             tvTitle.text = getString(R.string.empty_result)
@@ -97,26 +99,6 @@ class SearchFragment : Fragment() {
         super.onDestroy()
         binding?.adView?.destroy()
         binding = null
-    }
-
-    private fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                return true
-            }
-        }
-        return false
     }
 
     private fun initAdMod(){
