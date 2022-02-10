@@ -4,14 +4,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private var retrofit : Retrofit? = null
+    const val BASE_URL =
+        "https://script.google.com/macros/s/AKfycbye-pDB2Et_0OCH4rnAIuisMvf7rgNtS3qSr5EK2suDRdAAPbkj/"
+    private var retrofit : RetrofitServices? = null
 
-    fun getClient(baseUrl: String): Retrofit {
+    fun getClient(): RetrofitServices {
         if(retrofit == null) {
             retrofit = Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+                .create(RetrofitServices::class.java)
         }
         return retrofit!!
     }

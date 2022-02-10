@@ -51,17 +51,17 @@ class ListFragment : Fragment(), TickerCardAdapter.OnTickerCardClickListener,
 
     override fun onResume() {
         super.onResume()
-        binding!!.adView3.resume()
+        binding?.adView3?.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        binding!!.adView3.pause()
+        binding?.adView3?.pause()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding!!.adView3.destroy()
+        binding?.adView3?.destroy()
         binding = null
         viewModel.companyListLiveData.removeObservers(this)
     }

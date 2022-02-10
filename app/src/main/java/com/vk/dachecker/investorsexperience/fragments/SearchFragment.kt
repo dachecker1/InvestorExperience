@@ -44,36 +44,37 @@ class SearchFragment : Fragment() {
             binding?.tvInternerConnection?.visibility = View.VISIBLE
         }
 
-        binding?.cvSearch?.setOnClickListener {
-            val ticker = binding!!.edTicker.text.toString()
-            if (ticker.isEmpty()) {
-                Toast.makeText(context, getText(R.string.empty_text), Toast.LENGTH_SHORT).show()
-            } else {
-                binding!!.cvSearch.visibility = View.INVISIBLE
-                binding!!.progressBar.visibility = View.VISIBLE
-                viewModel.getSortedListByTicker(ticker)
-                viewModel.tickerName.value = ticker
+        binding?.run {
+            cvSearch.setOnClickListener {
+                val ticker = edTicker.text.toString()
+                if (ticker.isEmpty()) {
+                    Toast.makeText(context, getText(R.string.empty_text), Toast.LENGTH_SHORT).show()
+                } else {
+                    cvSearch.visibility = View.INVISIBLE
+                    progressBar.visibility = View.VISIBLE
+                    viewModel.getSortedListByTicker(ticker)
+                    viewModel.tickerName.value = ticker
 
-                viewModel.sortedListOfStockLiveData.observe(this, {
-                    if (it.isEmpty()) {
-                        binding!!.imLogo.setImageResource(R.drawable.ic_empty_result)
-                        binding!!.tvTitle.text = getString(R.string.empty_result)
-                        binding!!.cvSearch.visibility = View.VISIBLE
-                        binding!!.progressBar.visibility = View.GONE
-                    } else {
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.placeHolder, SearchTickerResultFragment.newInstance())
-                            .commit()
-                    }
-                })
+                    viewModel.sortedListOfStockLiveData.observe(this@SearchFragment, {
+                        if (it.isEmpty()) {
+                            imLogo.setImageResource(R.drawable.ic_empty_result)
+                            tvTitle.text = getString(R.string.empty_result)
+                            cvSearch.visibility = View.VISIBLE
+                            progressBar.visibility = View.GONE
+                        } else {
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.placeHolder, SearchTickerResultFragment.newInstance())
+                                .commit()
+                        }
+                    })
+                }
             }
         }
 
-        binding?.cvTicker?.isActivated = viewModel.listOfStockLiveData.value?.isNotEmpty() == true
         binding?.cvTicker?.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.placeHolder, AllTickersFragment.newInstance())
-                .commit()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.placeHolder, AllTickersFragment.newInstance())
+                    .commit()
         }
 
         binding?.cvReferal?.setOnClickListener {
@@ -84,17 +85,17 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding!!.adView.resume()
+        binding?.adView?.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        binding!!.adView.pause()
+        binding?.adView?.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding!!.adView.destroy()
+        binding?.adView?.destroy()
         binding = null
     }
 
@@ -121,7 +122,7 @@ class SearchFragment : Fragment() {
     private fun initAdMod(){
         MobileAds.initialize(requireActivity()) //передать context
         val adRequest = AdRequest.Builder().build()
-        binding!!.adView.loadAd(adRequest)
+        binding?.adView?.loadAd(adRequest)
     }
 
     companion object {

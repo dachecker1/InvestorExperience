@@ -26,45 +26,29 @@ class LinksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             cvBroker.setOnClickListener {
-                val i = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(URL_BROKER)
-                )
-                startActivity(i)
+                openActivity(URL_BROKER)
             }
 
             cvCourse1.setOnClickListener {
-                val i = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(URL_COURSE1)
-                )
-                startActivity(i)
+                openActivity(URL_COURSE1)
             }
 
             cvCourse2.setOnClickListener {
-                val i = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(URL_COURSE2)
-                )
-                startActivity(i)
+                openActivity(URL_COURSE2)
             }
 
             cvTelega.setOnClickListener {
-                val i = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(URL_TELEGRAM)
-                )
-                startActivity(i)
+                openActivity(URL_TELEGRAM)
             }
 
             cvYoutube.setOnClickListener {
-                val i = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(URL_YOUTUBE_CHANNEL)
-                )
-                startActivity(i)
+                openActivity(URL_YOUTUBE_CHANNEL)
             }
         }
+    }
+
+    private fun openActivity(url: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
     override fun onDestroyView() {
@@ -74,10 +58,11 @@ class LinksFragment : Fragment() {
 
     companion object {
         fun newInstance() = LinksFragment()
-        const val URL_BROKER = "https://www.tinkoff.ru/sl/35K9sv6xl3C"
-        const val URL_COURSE1 = "https://xn--80adjkzeedoigf4i.xn--p1ai/course1"
-        const val URL_COURSE2 = "https://xn--80adjkzeedoigf4i.xn--p1ai/course2"
-        const val URL_TELEGRAM = "https://t.me/investopit"
-        const val URL_YOUTUBE_CHANNEL = "https://www.youtube.com/channel/UC7RMUZkM3FPGFgQXqN8gB9A"
+        private const val URL_BROKER = "https://www.tinkoff.ru/sl/35K9sv6xl3C"
+        private const val URL_COURSE1 = "https://xn--80adjkzeedoigf4i.xn--p1ai/course1"
+        private const val URL_COURSE2 = "https://xn--80adjkzeedoigf4i.xn--p1ai/course2"
+        private const val URL_TELEGRAM = "https://t.me/investopit"
+        private const val URL_YOUTUBE_CHANNEL =
+            "https://www.youtube.com/channel/UC7RMUZkM3FPGFgQXqN8gB9A"
     }
 }

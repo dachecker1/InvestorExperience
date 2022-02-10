@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.vk.dachecker.investorsexperience.R
 import com.vk.dachecker.investorsexperience.adapters.AllTickersAdapter
 import com.vk.dachecker.investorsexperience.databinding.FragmentAllTickersBinding
+import com.vk.dachecker.investorsexperience.model.Company
 import com.vk.dachecker.investorsexperience.model.SharedViewModel
 
 class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListener {
@@ -29,10 +30,10 @@ class AllTickersFragment : Fragment(), AllTickersAdapter.OnTickerCardClickListen
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        viewModel.listOfStockLiveData.observe(this, { _ ->
+        viewModel.onlyTickerListLivedata.observe(this, { tickerList : List<String> ->
             binding?.apply {
                 rcView.layoutManager = GridLayoutManager(context, 4)
-                adapter.itemList = viewModel.getSortedTickerList()
+                adapter.itemList = tickerList
                 rcView.adapter = adapter
             }
         })

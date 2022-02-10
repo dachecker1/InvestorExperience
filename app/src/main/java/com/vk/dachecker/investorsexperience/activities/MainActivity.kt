@@ -12,6 +12,9 @@ import com.vk.dachecker.investorsexperience.fragments.AboutFragment
 import com.vk.dachecker.investorsexperience.fragments.LinksFragment
 import com.vk.dachecker.investorsexperience.fragments.ListFragment
 import com.vk.dachecker.investorsexperience.repositories.StockRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-        viewModel.downloadDataBase()
+
+        CoroutineScope(Dispatchers.Main).launch{
+            viewModel.downloadDataBase()
+        }
+
 //        (application as AppMainState).showAdIfAvailable(this){
 //
 //        }
