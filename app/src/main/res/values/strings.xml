@@ -34,5 +34,6 @@
     <string name="share_by" translatable="false">Поделиться с помощью</string>
     <string name="title_share" translatable="false">Интересный комментарий про: </string>
     <string name="connection_lost" translatable="false">Нет соединения с интернетом</string>
+    <string name="download_app" translatable="false">Качай приложение "Опыт инвестора" в Google Play </string>
 
 </resources>
