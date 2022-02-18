@@ -35,5 +35,6 @@
     <string name="title_share" translatable="false">Интересный комментарий про: </string>
     <string name="connection_lost" translatable="false">Нет соединения с интернетом</string>
     <string name="download_app" translatable="false">Качай приложение "Опыт инвестора" в Google Play </string>
+    <string name="bd_didnt_download" translatable="false">Актуальная база выпусков еще не скачалась, попробуй еще раз через несколько секунд</string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.vk.dachecker.investorsexperience.presentation.activities.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vk.dachecker.investorsexperience.R
@@ -41,9 +42,13 @@ class MainActivity : AppCompatActivity() {
                     openFrag(SearchFragment.newInstance(), R.id.placeHolder)
                 }
                 R.id.list -> {
-                    if (!isListFragmentOpen) {
-                        openFrag(ListFragment.newInstance(), R.id.placeHolder)
-                        isListFragmentOpen = true
+                    if(viewModel.getCompanyList().value?.isNotEmpty() == true) {
+                        if (!isListFragmentOpen) {
+                            openFrag(ListFragment.newInstance(), R.id.placeHolder)
+                            isListFragmentOpen = true
+                        }
+                    } else {
+                        Toast.makeText(this, R.string.bd_didnt_download, Toast.LENGTH_LONG).show()
                     }
                 }
                 R.id.links -> {
